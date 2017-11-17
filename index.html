@@ -3,18 +3,33 @@
   <body>
     <div id="demo">
       <h2>Let AJAX change this button</h2>
+      <select class="selectSubject" name="selectSubject" id="selectSubject">
+        <option value="fisica">Física</option>
+        <option value="Info">Informática</option>
+      </select>
       <button type="button" onclick="loadDoc()">Chage Content</button>
+      <table>
+        <tr>
+          <td>Carrera</td><td id="toFill">Empty</td>
+        </tr>
+      </table>
     </div>
   </body>
   <script>
     function loadDoc(){
+      var selectedSubject = document.getElementById("selectSubject").value;
+      alert("hola" + selectedSubject);
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-          document.getElementById("demo").innerHTML = this.responseText;
+          document.getElementById("toFill").innerHTML = this.responseText;
         }
       };
-      xhttp.open("GET", "ajax_info.txt", true);
+      if(selectedSubject == "Info"){
+        xhttp.open("GET", "ajax_info.txt", true);
+      }else {
+        xhttp.open("GET", "ajax_ime.txt", true);
+      }
       xhttp.send();
     }
   </script>
